@@ -21,7 +21,7 @@
       <command>echo &quot;$JENKINS_HOME&quot;
 cd $JENKINS_HOME
 
-git add -- *.xml jobs/*/*.xml userContent/*
+git add *.xml jobs/*/*.xml userContent/*
 
 
 if [ -d users ]; then
