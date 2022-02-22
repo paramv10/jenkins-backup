@@ -18,7 +18,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;$JENKINS_HOME&quot;
+      <command>echo &quot;This id jenkins WorkSpace: $JENKINS_HOME&quot;
+
 cd $JENKINS_HOME
 
 git add *.xml jobs/*/*.xml userContent/*
@@ -31,7 +32,6 @@ if [ -d users ]; then
         git add $user_configs
     fi
 fi
-
 
 to_remove=`git status | grep &quot;deleted&quot; | awk &apos;{print $3}&apos;`
 
