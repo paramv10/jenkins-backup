@@ -1,0 +1,62 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1145.v7f2433caa07f">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.9.3"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.9.3">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description>Building Project using Maven</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2648.va9433432b33c">
+    <script>pipeline {
+    // agent { node &quot;Slave1&quot; } or agent any 
+    agent { node { label &quot;java&quot;} }
+    //agent any
+    environment {
+        // Install the Maven version configured as &quot;maven3.8&quot; and add it to the path.
+		// tool { maven &quot;maven3&quot;
+		// another way of using maven given below.
+		
+        PATH=&quot;/opt/maven3/bin:$PATH&quot;
+    }
+
+    stages {
+            stage(&apos;CheckOut Code&apos;) {
+                steps {
+                    // Get some code from a GitHub repository
+                    git branch: &apos;dev&apos;, credentialsId: &apos;70860dd4-6c55-45b4-a377-6107adaa15a7&apos;, url: &apos;git@github.com:paramv10/taxi-booking.git&apos;
+                }
+            }
+            stage(&apos;Build Code &apos;) {
+                steps {
+                    // Run Maven on a Unix agent.
+                    sh &quot;mvn -Dmaven.test.failure.ignore=true clean package&quot;
+                    // To run Maven on a Windows agent, use
+                    // bat &quot;mvn -Dmaven.test.failure.ignore=true clean package&quot;
+                }
+                post {
+                    // If Maven was able to run the tests, even if some of the test
+                    // failed, record the test results and archive the war file.
+                    success {
+                        junit &apos;**/target/surefire-reports/TEST-*.xml&apos;
+                        archiveArtifacts &apos;webapp/target/*.war&apos;
+                    }
+                }
+            }
+            stage(&apos;Deploy on Nexus&apos;) {
+                steps {
+                    nexusArtifactUploader artifacts: [[artifactId: &apos;maven-project&apos;, classifier: &apos;&apos;, file: &apos;/opt/jenkins/workspace/pipelineDeployingOnTomcat01/webapp/target&apos;, type: &apos;war&apos;]], credentialsId: &apos;cb64b49e-ab59-44ef-aa8c-ab4dd747a966&apos;, groupId: &apos;com.example.maven-project&apos;, nexusUrl: &apos;54.166.93.125:8081/nexus&apos;, nexusVersion: &apos;nexus3&apos;, protocol: &apos;http&apos;, repository: &apos;maven-snapshots&apos;, version: &apos;1.0-SNAPSHOT&apos;
+                    }
+                }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

@@ -1,0 +1,55 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1145.v7f2433caa07f">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.9.3"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.9.3"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.9.3">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2648.va9433432b33c">
+    <script>
+    pipeline{
+            
+        agent any 
+        
+        tools{maven &quot;maven3&quot;}
+            
+        stages{
+            stage(&quot;checkout code&quot;){
+                steps{
+                    git branch: &apos;master&apos;, credentialsId: &apos;70860dd4-6c55-45b4-a377-6107adaa15a7&apos;, url: &apos;git@github.com:paramv10/SampleJavaCode.git&apos;
+                }
+            }
+            stage(&quot;Build Maven&quot;){
+                steps{
+                    sh &quot;mvn -Dmaven.test.failure.ignore=true clean package&quot;
+                }
+                
+            }
+            stage(&quot;deploy on NEXUS&quot;){
+                steps{
+                        nexusArtifactUploader artifacts: [[artifactId: &apos;maven-project&apos;, classifier: &apos;&apos;, file: &apos;/var/lib/jenkins/workspace/nexusPipeline01/webapp/target/webapp.war&apos;, type: &apos;war&apos;]], credentialsId: &apos;ad046db9-b9ea-4543-b1b2-20b1acb3e528&apos;, groupId: &apos;com.example.maven-project&apos;, nexusUrl: &apos;54.158.186.70:8081&apos;, nexusVersion: &apos;nexus3&apos;, protocol: &apos;http&apos;, repository: &apos;nexus-war-repo&apos;, version: &apos;1.0-SNAPSHOT&apos;
+                }
+            }
+            stage(&quot;Slack-Notify&quot;){
+                    steps{ 
+                        echo &quot;Build successfully&quot;
+                        slackSend channel: &apos;jenkins&apos;, color: &apos;#439FE0&apos;, message: &apos;Initial Build Successful&apos;
+                    }
+            }
+    
+        }
+        
+    }</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

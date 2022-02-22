@@ -1,0 +1,6 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.sonatype.nexus.ci.config.GlobalNexusConfiguration plugin="nexus-jenkins-plugin@3.13.20211221-143401.603ba12">
+  <nxrmConfigs/>
+  <iqConfigs/>
+  <instanceId>4024cf92bcae407d9a6453c1e028b921</instanceId>
+</org.sonatype.nexus.ci.config.GlobalNexusConfiguration>
