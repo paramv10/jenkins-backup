@@ -5,7 +5,33 @@
   <fullName>admin</fullName>
   <properties>
     <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1055.v1346ba467ba1">
-      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain>
+            <specifications/>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <java.util.concurrent.CopyOnWriteArrayList/>
+        </entry>
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain>
+            <name>blueocean-github-domain</name>
+            <description>blueocean-github-domain to store credentials by BlueOcean</description>
+            <specifications>
+              <io.jenkins.blueocean.rest.impl.pipeline.credential.BlueOceanDomainSpecification plugin="blueocean-pipeline-scm-api@1.25.2"/>
+            </specifications>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <list>
+            <com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
+              <scope>USER</scope>
+              <id>github</id>
+              <description>GitHub Access Token</description>
+              <username>admin</username>
+              <password>{AQAAABAAAAAw3busMiasA5hGTGOATJseuF9fTOzF86yadKFp0srYxPgHXZ5BCyP6qdssx95LcdEDmTM1f+IZJKi0n9tlvCuTvQ==}</password>
+              <usernameSecret>false</usernameSecret>
+            </com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
+          </list>
+        </entry>
+      </domainCredentialsMap>
     </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
     <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.86">
       <triggers/>
@@ -54,5 +80,11 @@
     <jenkins.plugins.slack.user.SlackUserProperty plugin="slack@2.49">
       <disableNotifications>false</disableNotifications>
     </jenkins.plugins.slack.user.SlackUserProperty>
+    <io.jenkins.blueocean.autofavorite.user.FavoritingUserProperty plugin="blueocean-autofavorite@1.2.5">
+      <autofavoriteEnabled>true</autofavoriteEnabled>
+    </io.jenkins.blueocean.autofavorite.user.FavoritingUserProperty>
+    <hudson.plugins.favorite.user.FavoriteUserProperty plugin="favorite@2.3.3">
+      <data class="concurrent-hash-map"/>
+    </hudson.plugins.favorite.user.FavoriteUserProperty>
   </properties>
 </user>
