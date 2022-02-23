@@ -112,6 +112,7 @@
         <string>Free Style project</string>
         <string>FreeStyle-Nexus</string>
         <string>FreeStyleproject01</string>
+        <string>jenkins-ENV</string>
         <string>jenkinsBackup</string>
       </jobNames>
       <jobFilters/>
