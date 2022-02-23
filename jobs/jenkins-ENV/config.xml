@@ -1,5 +1,6 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description>Checking most common Environment Varibale</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -12,13 +13,13 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;$BRANCH_NAME&quot;
-echo &quot;$BUILD_NUMBER&quot;
-echo &quot;$GIT_COMMIT&quot;
-echo &quot;$GIT_BRANCH&quot;
-echo &quot;$EXECUTOR_NUMBER&quot;
-echo &quot;$TAG_DATE&quot;
-echo &quot;$BUILD_TAG&quot;</command>
+      <command>echo &quot;banch-name: $BRANCH_NAME&quot;
+echo &quot;Build-No: $BUILD_NUMBER&quot;
+echo &quot;git-commit: $GIT_COMMIT&quot;
+echo &quot;git-branch: $GIT_BRANCH&quot;
+echo &quot;executor-no: $EXECUTOR_NUMBER&quot;
+echo &quot;tag-date: $TAG_DATE&quot;
+echo &quot;build-tag: $BUILD_TAG&quot;</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>
