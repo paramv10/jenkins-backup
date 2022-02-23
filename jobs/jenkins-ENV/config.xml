@@ -1,5 +1,6 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <project>
+  <description>Checking most common Environment Varibale</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -9,7 +10,18 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo &quot;$BRANCH_NAME&quot;
+echo &quot;$BUILD_NUMBER&quot;
+echo &quot;$GIT_COMMIT&quot;
+echo &quot;$GIT_BRANCH&quot;
+echo &quot;$EXECUTOR_NUMBER&quot;
+echo &quot;$TAG_DATE&quot;
+echo &quot;$BUILD_TAG&quot;</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
   <publishers/>
   <buildWrappers/>
 </project>
